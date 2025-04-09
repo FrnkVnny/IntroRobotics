@@ -1,6 +1,5 @@
 from robots import *
 import time
-from coppeliasim_zmqremoteapi_client import *
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 

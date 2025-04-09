@@ -78,6 +78,9 @@ class Robot(CoppeliaComponent):
     def get_string_signal(self, signal_name):
         return self._sim.getStringSignal(signal_name)
 
+    def get_buffer_signal(self, signal_name):
+        return self._sim.getBufferSignal(signal_name)
+
 class Robot_OS(Robot):
     def __init__(self, sim, ObjectName):
         """_summary_
@@ -103,7 +106,7 @@ class Robot_OS(Robot):
 		Returns:
 			Float: battery value
 		"""
-        return float(self.get_string_signal("battery").decode("utf-8"))
+        return float(self.get_string_signal("battery"))
 
     def get_bumper_sensor(self):
         """
@@ -112,7 +115,7 @@ class Robot_OS(Robot):
 		Returns:
 			Array[Int]: bumper sensor readings as a 3 dimensional array
 		"""
-        response = self.get_string_signal("bumper_sensor")
+        response = self.get_buffer_signal("bumper_sensor")
         bumper_readings = struct.unpack('3f', response)
         return bumper_readings
 
@@ -123,7 +126,7 @@ class Robot_OS(Robot):
 		Returns:
 			Int: distance or -1 if no data
 		"""
-        response = self.get_string_signal("sonar_sensor")
+        response = self.get_buffer_signal("sonar_sensor")
         sonar_dist = struct.unpack('f', response)[0]
         return sonar_dist
 
